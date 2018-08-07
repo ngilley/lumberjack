@@ -155,7 +155,10 @@ func (l *Logger) Write(p []byte) (n int, err error) {
 		}
 	}
 
-	n, err = l.file.Write(p)
+    timeStamp := strings.Replace(time.Now().UTC().Format("2006-01-02 15:04:05.000"), ".", ",", 1)
+    //TODO: Need a way to change the log level
+	// n, err = l.file.Write(p)
+	n, err = l.file.WriteString("[" + timeStamp + "][INFO]" + "[HYDRA][EMC] " + string(p))
 	l.size += int64(n)
 
 	return n, err
